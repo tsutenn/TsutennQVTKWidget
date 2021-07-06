@@ -23,11 +23,7 @@ vtkSmartPointer<vtkRenderer> renderer;
 vtkSmartPointer<vtkGenericOpenGLRenderWindow> renWin;
 QVTKInteractor* iren;
 
-Example::Example(QWidget *parent)
-    : QMainWindow(parent)
-{
-    ui.setupUi(this);
-
+void initVTK() {
     cylinder = vtkSmartPointer<vtkCylinderSource>::New();
     cylinder->SetHeight(3.0);
     cylinder->SetRadius(1.0);
@@ -60,18 +56,27 @@ Example::Example(QWidget *parent)
 
     renWin = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     renWin->AddRenderer(renderer);
+}
 
+Example::Example(QWidget *parent)
+    : QMainWindow(parent)
+{
+    ui.setupUi(this);
+
+    initVTK();
+
+    ui.widget->setRenderWindow(renWin);
+
+    //Set callback function
     iren = QVTKInteractor::New();
     vtkSmartPointer<TsutennCallback> irenRefresh = TsutennCallback::New(ui.widget);
     iren->CreateRepeatingTimer(1);
     iren->AddObserver(vtkCommand::TimerEvent, irenRefresh);
     iren->SetRenderWindow(renWin);
 
-    ui.widget->setRenderWindow(renWin);
-
+    //Initialize table widget
     ui.tableWidget->setColumnCount(3);
     ui.tableWidget->setRowCount(10);
-
     QStringList headers;
     headers << "ID" << "X" << "Y";
     ui.tableWidget->setHorizontalHeaderLabels(headers);
@@ -84,6 +89,7 @@ Example::Example(QWidget *parent)
         ui.tableWidget->setItem(i, 2, new QTableWidgetItem(" "));
     }
 
+    //Let table widget show the touch information in TsutennQVTKWidget
     void(TsutennQVTKWidget:: * TouchSignal) (QList<QPointF>) = &TsutennQVTKWidget::TOUCH_UPDATE;
     void(Example:: * ThisSolt) (QList<QPointF>) = &Example::exampleSolt;
     QObject::connect(ui.widget, TouchSignal, this, ThisSolt);
@@ -107,6 +113,9 @@ void Example::exampleSolt(QList<QPointF> points) {
     ui.label->setText(QString::number(points.count()));
 }
 
+/*
+ * Implement of the execute functions in TsutenCallback 
+ */
 void TsutennCallback::touchBeginExecute(QList<QPointF> points) {
 
 }

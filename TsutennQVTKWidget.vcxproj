@@ -55,10 +55,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\VTK\Install\include\vtk-9.0;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Documents\VSProjects\TsutennQVTKWidget\x64\Debug\uic;C:\VTK\Install\include\vtk-9.0;$(IncludePath)</IncludePath>
     <LibraryPath>C:\VTK\Install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>D:\Documents\VSProjects\TsutennQVTKWidget\x64\Debug\uic;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>

@@ -50,9 +50,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="TsutennQVTKWidget.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="Example.ui">
       <Filter>Form Files</Filter>
     </QtUic>

@@ -7,7 +7,7 @@
 #include <qpoint.h>
 #include <qdebug.h>
 #include <qobject.h>
-#include "ui_TsutennQVTKWidget.h"
+//#include "ui_TsutennQVTKWidget.h"
 
 class TsutennQVTKWidget : public QVTKOpenGLNativeWidget
 {
@@ -20,7 +20,7 @@ public:
 	bool eventFilter(QObject* object, QEvent*);
 
 private:
-	Ui::TsutennQVTKWidget ui;
+	//Ui::TsutennQVTKWidget ui;
 
 	bool touchBeginEventProcess(QEvent*);
 	bool touchUpdateEventProcess(QEvent*);

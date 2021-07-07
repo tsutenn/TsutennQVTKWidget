@@ -99,7 +99,6 @@
     <QtMoc Include="Example.h" />
     <ClCompile Include="Example.cpp" />
     <QtUic Include="Example.ui" />
-    <QtUic Include="TsutennQVTKWidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="TsutennQVTKWidget.h" />

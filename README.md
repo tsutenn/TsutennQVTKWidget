@@ -22,7 +22,7 @@ signals:
 
 ### **TsutennCallback.h**：
 
-处理 `TsutennQVTKWidget` 事件的回调函数，继于 `vtkCommand.h` 依赖 `tsutennTask.h `，`slotHelper.h` 和 `TsutennQVTKwidget.h` 。在使用时Interactor绑定的Style会部分失效。
+处理 `TsutennQVTKWidget` 事件的回调函数，继承 `vtkCommand.h` ，依赖 `tsutennTask.h `，`slotHelper.h` 和 `TsutennQVTKwidget.h` 。在使用时Interactor绑定的Style会部分失效。
 
 **设置作用的 TsutennQVTKWidget**
 

@@ -3,7 +3,7 @@
 TsutennQVTKWidget::TsutennQVTKWidget(QWidget *parent)
 	: QVTKOpenGLNativeWidget(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 
 	this->setAttribute(Qt::WA_AcceptTouchEvents);
 	this->installEventFilter(this);

@@ -16,6 +16,7 @@ signals:
 	void MOUSE_BEGIN(QPointF);
 	void MOUSE_END(QPointF, QPointF);
 	void MOUSE_DOUBLE_CLICK(QPointF);
+	void MOUSE_MOVE(QPointF);
 ```
 
 
@@ -40,14 +41,49 @@ void setParent(TsutennQVTKWidget* parent);
 
 **需要实现以下成员函数：**
 
-``` c++
-void touchBeginExecute(QList<QPointF>);
-void touchUpdateExecute(QList<QPointF>);
-void touchEndExecute(QList<QPointF>);
-void mouseBeginExecute(QList<QPointF>);
-void mouseEndExecute(QList<QPointF>);
-void mouseDoubleClickExecute(QList<QPointF>);
+触摸开始：
+
+```c++
+virtual void touchBeginExecute(QList<QPointF>);
 ```
+
+触摸更新：
+
+``` c++
+virtual void touchUpdateExecute(QList<QPointF>);
+```
+
+触摸结束：
+
+```c++
+virtual void touchEndExecute(QList<QPointF>);
+```
+
+鼠标按下按键：
+
+```c++
+virtual void mouseBeginExecute(QList<QPointF>);
+```
+
+鼠标在按下按键时移动
+
+```c++
+virtual void mouseMoveExecute(QList<QPointF>);
+```
+
+鼠标松开按键：
+
+```c++
+virtual void mouseEndExecute(QList<QPointF>);
+```
+
+鼠标双击：
+
+```c++
+virtual void mouseDoubleClickExecute(QList<QPointF>);
+```
+
+以上即使没有使用也需要实现，否则会报错。
 
 
 

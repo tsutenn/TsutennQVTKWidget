@@ -28,6 +28,7 @@ private:
 	bool mousePressEventProcess(QEvent*);
 	bool mouseReleaseEventProcess(QEvent*);
 	bool mouseDoubleClickEventProcess(QEvent*);
+	bool mouseMoveEventProcess(QEvent*);
 	bool processMouseEvent = false;
 	QPointF startPos, endPos;
 	QList<QTouchEvent::TouchPoint> touchPoints;
@@ -39,6 +40,7 @@ signals:
 	void MOUSE_BEGIN(QPointF);
 	void MOUSE_END(QPointF, QPointF);
 	void MOUSE_DOUBLE_CLICK(QPointF);
+	void MOUSE_MOVE(QPointF);
 };
 
 #endif // !TSUTENNQVTKWIDGET_H

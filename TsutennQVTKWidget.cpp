@@ -34,6 +34,9 @@ bool TsutennQVTKWidget::eventFilter(QObject* object, QEvent* event) {
 	else if (event->type() == QEvent::MouseButtonDblClick) {
 		return mouseDoubleClickEventProcess(event);
 	}
+	else if (event->type() == QEvent::MouseMove) {
+		return mouseMoveEventProcess(event);
+	}
 	return false;
 
 }
@@ -98,5 +101,14 @@ bool TsutennQVTKWidget::mouseDoubleClickEventProcess(QEvent* event) {
 	QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
 	QPointF Pos = mouseEvent->pos();
 	MOUSE_DOUBLE_CLICK(Pos);
+	return true;
+}
+
+bool TsutennQVTKWidget::mouseMoveEventProcess(QEvent* event) {
+	if (processMouseEvent) {
+		QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+		QPointF Pos = mouseEvent->pos();
+		MOUSE_MOVE(Pos);
+	}
 	return true;
 }

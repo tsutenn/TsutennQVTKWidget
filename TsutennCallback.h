@@ -2,6 +2,7 @@
 #define TSUTENNCALLBACK_H
 
 #include <vtkCommand.h>
+#include <vtkRenderWindowInteractor.h>
 #include "TsutennQVTKWidget.h"
 #include "slotHelper.h"
 #include "tsutennTask.h"
@@ -22,12 +23,13 @@ private:
     /*
      * Implement these methods!
      */
-    void touchBeginExecute(QList<QPointF>);
-    void touchUpdateExecute(QList<QPointF>);
-    void touchEndExecute(QList<QPointF>);
-    void mouseBeginExecute(QList<QPointF>);
-    void mouseEndExecute(QList<QPointF>);
-    void mouseDoubleClickExecute(QList<QPointF>);
+    virtual void touchBeginExecute(QList<QPointF>);
+    virtual void touchUpdateExecute(QList<QPointF>);
+    virtual void touchEndExecute(QList<QPointF>);
+    virtual void mouseBeginExecute(QList<QPointF>);
+    virtual void mouseEndExecute(QList<QPointF>);
+    virtual void mouseDoubleClickExecute(QList<QPointF>);
+    virtual void mouseMoveExecute(QList<QPointF>);
 };
 
 #endif // !TSUTENNCALLBACK_H

@@ -12,9 +12,6 @@ class slotHelper :
 
 private:
     QQueue<tsutennTask*> tasks;
-	QPointF touchPos;
-	QPointF mouseStartPos;
-	QPointF mouseEndPos;
 
 public:
 	slotHelper(TsutennQVTKWidget* parent = Q_NULLPTR);
@@ -33,6 +30,7 @@ public slots:
 	void mouseBeginEventProcessor(QPointF);
 	void mouseEndEventProcessor(QPointF, QPointF);
 	void mouseDoubleClickEventProcessor(QPointF);
+	void mouseMoveEventProcessor(QPointF);
 };
 
 #endif // !SLOTHELPER_H

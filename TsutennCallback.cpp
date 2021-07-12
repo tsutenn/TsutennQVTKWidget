@@ -8,6 +8,7 @@ slotHelper::slotHelper(TsutennQVTKWidget* parent) : QObject(parent) {
 	void(TsutennQVTKWidget:: * MouseBegin) (QPointF) = &TsutennQVTKWidget::MOUSE_BEGIN;
 	void(TsutennQVTKWidget:: * MouseEnd) (QPointF, QPointF) = &TsutennQVTKWidget::MOUSE_END;
 	void(TsutennQVTKWidget:: * MouseDoubleClick) (QPointF) = &TsutennQVTKWidget::MOUSE_DOUBLE_CLICK;
+	void(TsutennQVTKWidget:: * MouseMove) (QPointF) = &TsutennQVTKWidget::MOUSE_MOVE;
 
 	void(slotHelper:: * tbep) (QList<QPointF>) = &slotHelper::touchBeginEventProcessor;
 	void(slotHelper:: * tuep) (QList<QPointF>) = &slotHelper::touchUpdateEventProcessor;
@@ -15,6 +16,7 @@ slotHelper::slotHelper(TsutennQVTKWidget* parent) : QObject(parent) {
 	void(slotHelper:: * mbep) (QPointF) = &slotHelper::mouseBeginEventProcessor;
 	void(slotHelper:: * meep) (QPointF, QPointF) = &slotHelper::mouseEndEventProcessor;
 	void(slotHelper:: * mdcep) (QPointF) = &slotHelper::mouseDoubleClickEventProcessor;
+	void(slotHelper:: * mmep) (QPointF) = &slotHelper::mouseMoveEventProcessor;
 
 	QObject::connect(parent, TouchBegin, this, tbep);
 	QObject::connect(parent, TouchUpdate, this, tuep);
@@ -22,6 +24,7 @@ slotHelper::slotHelper(TsutennQVTKWidget* parent) : QObject(parent) {
 	QObject::connect(parent, MouseBegin, this, mbep);
 	QObject::connect(parent, MouseEnd, this, meep);
 	QObject::connect(parent, MouseDoubleClick, this, mdcep);
+	QObject::connect(parent, MouseMove, this, mmep);
 }
 
 slotHelper::~slotHelper() {
@@ -58,6 +61,12 @@ void slotHelper::mouseDoubleClickEventProcessor(QPointF clickpos) {
 	this->tasks.enqueue(new tsutennTask(5, points));
 }
 
+void slotHelper::mouseMoveEventProcessor(QPointF movepos) {
+	QList<QPointF> points;
+	points.append(movepos);
+	this->tasks.enqueue(new tsutennTask(6, points));
+}
+
 
 //tsutenn callback
 TsutennCallback* TsutennCallback::New(TsutennQVTKWidget* parent) {
@@ -71,7 +80,7 @@ void TsutennCallback::setParent(TsutennQVTKWidget* parent) {
 }
 
 void TsutennCallback::Execute(vtkObject* caller, unsigned long vtkNotUsed(eventId), void* vtkNotUsed(callData)) {
-	if (this->callback_slot->hasTask()) {
+	while (this->callback_slot->hasTask()) {
 		tsutennTask* task = this->callback_slot->getTask();
 		switch (task->getType()) {
 		case 0:
@@ -96,7 +105,10 @@ void TsutennCallback::Execute(vtkObject* caller, unsigned long vtkNotUsed(eventI
 		case 5:
 			qDebug() << "Mouse double click";
 			mouseDoubleClickExecute(task->getPoints());
+			break;
+		case 6:
+			mouseMoveExecute(task->getPoints());
+			break;
 		}
-
 	}
 }
